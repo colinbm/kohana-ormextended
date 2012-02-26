@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class SlugHelper {
+class OrmExtended_Core_SlugHelper {
 
 	public static function sluggify($string) {
 		// convert chinese text to pinyin - this will need further processing

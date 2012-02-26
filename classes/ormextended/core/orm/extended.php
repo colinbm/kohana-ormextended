@@ -46,7 +46,7 @@ class OrmExtended_Core_ORM_Extended extends Kohana_ORM {
 	 * Override save to generate slug if none is provided
 	 */
 	public function save(Validation $validation = NULL) {
-		if (array_key_exists('slug', $this->_object) && array_key_exists($this->slug_from, $this->_object) && !$this->slug) {
+		if (array_key_exists('slug', $this->_object) && (array_key_exists($this->slug_from, $this->_object) || method_exists($this, 'get_'.$this->slug_from)) && !$this->slug) {
 			$this->slug = SlugHelper::sluggify($this->{$this->slug_from});
 		}
 
