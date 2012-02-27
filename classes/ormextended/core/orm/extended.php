@@ -106,5 +106,19 @@ class OrmExtended_Core_ORM_Extended extends Kohana_ORM {
 		}
 		return parent::find_all();
 	}
+	
+	/**
+	 * Remove any ordering. Useful if it's been set automatically
+	 * in the __construct.
+	 *
+	 */
+	public function reset_order_by() {
+		foreach($this->_db_pending as $index => $part) {
+			if ($part['name'] == 'order_by') {
+				unset($this->_db_pending[$index]);
+			}
+		}
+		return $this;
+	}
 
 }
