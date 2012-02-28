@@ -120,5 +120,23 @@ class OrmExtended_Core_ORM_Extended extends Kohana_ORM {
 		}
 		return $this;
 	}
+	
+	/**
+	 * If you use IN or NOT IN and pass an empty array, this results in invalid SQL ("IN ()")
+	 * Change the query in these instances as follows:
+	 *    Original   Intent               Result
+	 *    IN ()      return no results    1=0
+	 *    NOT IN ()  return all results   1=1
+	 */
+	public function where($column, $op, $value)     { return $this->custom_where('where', $column, $op, $value); }
+	public function and_where($column, $op, $value) { return $this->custom_where('and_where', $column, $op, $value); }
+	public function or_where($column, $op, $value)  { return $this->custom_where('or_where', $column, $op, $value); }
+	
+	protected function custom_where($type, $column, $op, $value) {
+		if (in_array($op, array('IN', 'NOT IN')) && !$value) {
+			return parent::$type(DB::expr(1), '=', $op == 'IN' ? DB::expr(0) : DB::expr(1));
+		}
+		return parent::$type($column, $op, $value);
+	}
 
 }
