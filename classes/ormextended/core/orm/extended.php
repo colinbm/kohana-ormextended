@@ -138,5 +138,20 @@ class OrmExtended_Core_ORM_Extended extends Kohana_ORM {
 		}
 		return parent::$type($column, $op, $value);
 	}
+	
+	/**
+	 * Join with a has_many relationship, getting the most recent entry only.
+	 * See http://stackoverflow.com/questions/2111384/sql-join-selecting-the-last-records-in-a-one-to-many-relationship
+	 */
+	public function join_with_latest($table, $foreign_key, $timestamp_column='created_at', $id_column='id') {
+		if (!is_array($table)) $table = array($table, $table);
+		
+		$model = strtolower(str_replace('Model_', '', get_class($this)));
+		return $this
+			->join($table)->on("{$model}.{$id_column}", '=', "{$table[1]}.{$foreign_key}")
+			->join(array($table[0], 't2'), 'left')
+			->on("{$model}.{$id_column}", '', DB::expr("=t2.{$foreign_key} AND {$table[1]}.{$timestamp_column}<t2.{$timestamp_column} OR ({$table[1]}.{$timestamp_column}=t2.{$timestamp_column} AND {$table[1]}.{$id_column}<t2.{$id_column})"))
+			->where("t2.{$id_column}", 'IS', null);
+	}
 
 }
