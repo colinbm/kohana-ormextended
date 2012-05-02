@@ -112,8 +112,6 @@ class OrmExtended_Core_ORM_Extended extends Kohana_ORM {
 	 *
 	 */	
 	public function find_all() {
-		echo $this->_order;
-		var_dump(array_keys($this->_object));
 		if (array_key_exists($this->_order, $this->_object)) {
 			$this->order_by($this->_order);
 		}
