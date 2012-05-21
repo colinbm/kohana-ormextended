@@ -10,6 +10,7 @@ Injected Relations
 Add a relation to a model without predefining it. Useful in optional modules, for instance in init.php for a Blog module:
 
 ```php
+<?php
 ORM::inject_relation('Model_Blog', '_has_one', array('user' => array('model' => 'user'))))
 ```
 
@@ -32,6 +33,7 @@ Custom Getters
 Define a method with a `get_` prefix, e.g. `get_full_name()`, and you can access it as `$object->full_name`. e.g.:
 
 ```php
+<?php
 public function get_full_name() {
 	return $this->first_name . ' ' . $this->last_name;
 }
@@ -44,6 +46,7 @@ Default Ordering
 To set a default order when using the model's factory, just set `$_order` and optionally `$_order_dir`.
 
 ```php
+<?php
 protected $_order = 'created_at';
 protected $_order_desc = 'desc';
 ```
@@ -57,6 +60,7 @@ IN / NOT IN Helpers
 -------------------
 
 ```php
+<?php
 ORM::factory('user')->where('id', 'IN', $users);
 ```
 
@@ -75,5 +79,6 @@ Join With Latest
 Sometimes we want to just get the latest associated record. e.g. if we have a Page model, which has multiple PageRevisions. Normally we want the latest PageRevision's content. We can now do:
 
 ```php
+<?php
 ORM::factory('page')->join_with_latest('pagerevisions', 'page_id')
 ```
