@@ -120,7 +120,7 @@ class OrmExtended_Core_ORM_Extended extends Kohana_ORM {
 	 */	
 	public function find_all() {
 		if (array_key_exists($this->_order, $this->_object)) {
-			$this->order_by($this->_order, $this->order_dir);
+			$this->order_by($this->_order, $this->_order_dir);
 		}
 		return parent::find_all();
 	}
