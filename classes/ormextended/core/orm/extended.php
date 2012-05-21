@@ -107,13 +107,20 @@ class OrmExtended_Core_ORM_Extended extends Kohana_ORM {
 	protected $_order = 'order';
 	
 	/**
+	 * Direction to sort in.
+	 *
+	 * @var string $_order_dir
+	 */
+	protected $_order_dir = 'asc';
+	
+	/**
 	 * Override find_all to automatically order by $this->_order column
 	 * if present.
 	 *
 	 */	
 	public function find_all() {
 		if (array_key_exists($this->_order, $this->_object)) {
-			$this->order_by($this->_order);
+			$this->order_by($this->_order, $this->order_dir);
 		}
 		return parent::find_all();
 	}
