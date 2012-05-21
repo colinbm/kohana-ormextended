@@ -11,7 +11,7 @@ Add a relation to a model without predefining it. Useful in optional modules, fo
 
 ```php
 <?php
-ORM::inject_relation('Model_Blog', '_has_one', array('user' => array('model' => 'user'))))
+ORM::inject_relation('Model_User', '_has_one', array('blog' => array('model' => 'blog'))))
 ```
 
 
