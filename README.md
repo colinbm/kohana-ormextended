@@ -48,7 +48,7 @@ To set a default order when using the model's factory, just set `$_order` and op
 ```php
 <?php
 protected $_order = 'created_at';
-protected $_order_desc = 'desc';
+protected $_order_dir = 'desc';
 ```
 
 Alternatively you can just include an `order` column and this will automatically be used.
